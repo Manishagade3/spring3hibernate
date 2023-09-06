@@ -75,7 +75,6 @@ jobs:
           cat /home/runner/.kube/config
           #cat ~/.aws/credentials
           kubectl config current-context
-          kubectl version --short --client
           kubectl get nodes
 
 
