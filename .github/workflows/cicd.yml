@@ -24,9 +24,9 @@ jobs:
         run: |
           # Tag your Docker image with the ECR repository URI
           aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 333920746455.dkr.ecr.us-east-1.amazonaws.com
-          docker build -t ${{ vars.ECR_REGISTRY }}/${{ vars.ECR_REPO }}:${{ GITHUB_RUN_ID }} .
-          #docker tag springboot:${{ github.run_id }} 333920746455.dkr.ecr.us-east-1.amazonaws.com/springboot:${{ GITHUB_RUN_ID }}
-          docker push ${{ vars.ECR_REGISTRY }}/${{ vars.ECR_REPO }}:${{ GITHUB_RUN_ID }}
+          docker build -t ${{ vars.ECR_REGISTRY }}/${{ vars.ECR_REPO }}:${{ env.GITHUB_RUN_ID }} .
+          #docker tag springboot:${{ github.run_id }} 333920746455.dkr.ecr.us-east-1.amazonaws.com/springboot:${{ env.GITHUB_RUN_ID }}
+          docker push ${{ vars.ECR_REGISTRY }}/${{ vars.ECR_REPO }}:${{ env.GITHUB_RUN_ID }}
           # docker tag your-docker-image:${{ github.run_id }} your-ecr-repo-url/your-docker-image:${{ github.run_id }}
 
           # Push the Docker image to ECR
