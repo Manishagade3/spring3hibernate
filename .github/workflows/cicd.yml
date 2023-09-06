@@ -27,7 +27,7 @@ jobs:
 
       - name: Push Docker Image to ECR
         run: |
-          docker build -t ${{ vars.ECR_REGISTRY }}/${{ vars.ECR_REPO }}:latest.
+          docker build -t ${{ vars.ECR_REGISTRY }}/${{ vars.ECR_REPO }}:latest .
           docker push ${{ vars.ECR_REGISTRY }}/${{ vars.ECR_REPO }}:latest
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
