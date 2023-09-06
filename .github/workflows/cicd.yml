@@ -5,6 +5,14 @@ on:
     branches:
       - master
 
+env:
+   AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+   AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+   AWS_DEFAULT_REGION: ${{ env.REGION }}
+   ECR_REGISTRY: ${{ env.ECR_REGISTRY }}
+   ECR_REPO: ${{ env.ECR_REPO }}
+   IMAGE_TAG: ${{ github.sha }}      
+
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
@@ -28,13 +36,7 @@ jobs:
         run: |
           docker build -t ${{ vars.ECR_REGISTRY }}/${{ vars.ECR_REPO }}:${{ env.IMAGE_TAG }} .
           docker push ${{ vars.ECR_REGISTRY }}/${{ vars.ECR_REPO }}:${{ env.IMAGE_TAG }}
-        env:
-          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          AWS_DEFAULT_REGION: ${{ env.REGION }}
-          ECR_REGISTRY: ${{ env.ECR_REGISTRY }}
-          ECR_REPO: ${{ env.ECR_REPO }}
-          IMAGE_TAG: ${{ github.sha }}
+        
 
       - name: install kubectl
         uses: azure/setup-kubectl@v3
