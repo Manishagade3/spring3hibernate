@@ -75,7 +75,7 @@ jobs:
           cat /home/runner/.kube/config
           #cat ~/.aws/credentials
           kubectl config current-context
-          sudo kubectl get nodes
+          kubectl get nodes
 
 
       #     # Apply Kubernetes manifests for deployment
