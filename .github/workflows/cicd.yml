@@ -73,6 +73,8 @@ jobs:
           # Configure kubectl to access your EKS cluster
           aws eks update-kubeconfig --name OT-cluster5     --region us-east-1
           cat /home/runner/.kube/config
+          kubectl version --short --client
+
 
       #     # Apply Kubernetes manifests for deployment
       #     kubectl apply -f kubernetes-manifests/your-app-deployment.yaml
