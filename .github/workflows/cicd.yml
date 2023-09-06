@@ -36,14 +36,20 @@ jobs:
           ECR_REPO: ${{ env.ECR_REPO }}
 
       - name: install kubectl
-        run: |
-          curl -O https://s3.us-west-2.amazonaws.com/amazon-eks/1.27.4/2023-08-16/bin/linux/amd64/kubectl
-          curl -O https://s3.us-west-2.amazonaws.com/amazon-eks/1.27.4/2023-08-16/bin/linux/amd64/kubectl.sha256
-          sha256sum -c kubectl.sha256
-          openssl sha1 -sha256 kubectl
-          chmod +x ./kubectl
-          mkdir -p $HOME/bin && cp ./kubectl $HOME/bin/kubectl && export PATH=$HOME/bin:$PATH
-          kubectl version --short --client
+        uses: azure/setup-kubectl@v3
+        with:
+          version: '1.27.4' # default is latest stable
+        id: install    
+
+      # - name: install kubectl
+      #   run: |
+      #     curl -O https://s3.us-west-2.amazonaws.com/amazon-eks/1.27.4/2023-08-16/bin/linux/amd64/kubectl
+      #     curl -O https://s3.us-west-2.amazonaws.com/amazon-eks/1.27.4/2023-08-16/bin/linux/amd64/kubectl.sha256
+      #     sha256sum -c kubectl.sha256
+      #     openssl sha1 -sha256 kubectl
+      #     chmod +x ./kubectl
+      #     mkdir -p $HOME/bin && cp ./kubectl $HOME/bin/kubectl && export PATH=$HOME/bin:$PATH
+      #     kubectl version --short --client
 
       # - name: Deploy to EKS
       #   run: |
