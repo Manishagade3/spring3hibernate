@@ -18,7 +18,7 @@ jobs:
         with:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: ${{ secrets.region }}
+          aws-region: ${{ vars.REGION }}
 
       - name: Push Docker Image to ECR
         run: |
@@ -34,7 +34,7 @@ jobs:
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          AWS_DEFAULT_REGION: ${{ secrets.region }}
+          AWS_DEFAULT_REGION: ${{ vars.REGION }}
 
       # - name: Deploy to EKS
       #   run: |
