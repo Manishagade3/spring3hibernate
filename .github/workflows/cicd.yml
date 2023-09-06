@@ -26,7 +26,7 @@ jobs:
           aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 333920746455.dkr.ecr.us-east-1.amazonaws.com
           docker build -t springboot .
           docker tag springboot:${{ github.run_id }} 333920746455.dkr.ecr.us-east-1.amazonaws.com/springboot:${{ github.run_id }}
-          docker push 333920746455.dkr.ecr.us-east-1.amazonaws.com/springboot:latest
+          docker push 333920746455.dkr.ecr.us-east-1.amazonaws.com/springboot:${{ github.run_id }}
           # docker tag your-docker-image:${{ github.run_id }} your-ecr-repo-url/your-docker-image:${{ github.run_id }}
 
           # Push the Docker image to ECR
