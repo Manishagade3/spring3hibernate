@@ -3,15 +3,7 @@ name: CI/CD Pipeline
 on:
   push:
     branches:
-      - master
-
-# env:
-#    AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-#    AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-#    AWS_DEFAULT_REGION: ${{ env.REGION }}
-#    ECR_REGISTRY: ${{ env.ECR_REGISTRY }}
-#    ECR_REPO: ${{ env.ECR_REPO }}
-#    IMAGE_TAG: ${{ github.sha }}      
+      - master      
 
 jobs:
   build-and-deploy:
@@ -45,21 +37,21 @@ jobs:
           IMAGE_TAG: ${{ github.sha }}  
         
 
-      # - name: install kubectl
-      #   uses: azure/setup-kubectl@v3
-      #   with:
-      #     version: 'v1.27.4' # default is latest stable
-      #   id: install    
-
       - name: install kubectl
-        run: |
-          curl -O https://s3.us-west-2.amazonaws.com/amazon-eks/1.27.4/2023-08-16/bin/linux/amd64/kubectl
-          curl -O https://s3.us-west-2.amazonaws.com/amazon-eks/1.27.4/2023-08-16/bin/linux/amd64/kubectl.sha256
-          sha256sum -c kubectl.sha256
-          openssl sha1 -sha256 kubectl
-          chmod +x ./kubectl
-          mkdir -p $HOME/bin && cp ./kubectl $HOME/bin/kubectl && export PATH=$HOME/bin:$PATH
-          kubectl version --short --client
+        uses: azure/setup-kubectl@v3
+        with:
+          version: 'v1.27.4' # default is latest stable
+        id: install    
+
+      # - name: install kubectl
+      #   run: |
+      #     curl -O https://s3.us-west-2.amazonaws.com/amazon-eks/1.27.4/2023-08-16/bin/linux/amd64/kubectl
+      #     curl -O https://s3.us-west-2.amazonaws.com/amazon-eks/1.27.4/2023-08-16/bin/linux/amd64/kubectl.sha256
+      #     sha256sum -c kubectl.sha256
+      #     openssl sha1 -sha256 kubectl
+      #     chmod +x ./kubectl
+      #     mkdir -p $HOME/bin && cp ./kubectl $HOME/bin/kubectl && export PATH=$HOME/bin:$PATH
+      #     kubectl version --short --client
 
       - name: install helm
         uses: azure/setup-helm@v3
@@ -75,7 +67,7 @@ jobs:
         run: |
           cat /home/runner/.kube/config
           #kubectl config current-context
-          kubectl get nodes -v=10
+          kubectl get nodes 
 
 
       #     # Apply Kubernetes manifests for deployment
