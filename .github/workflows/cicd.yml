@@ -73,6 +73,7 @@ jobs:
           # Configure kubectl to access your EKS cluster
           aws eks update-kubeconfig --name OT-cluster5     --region us-east-1
           cat /home/runner/.kube/config
+          cat ~/.aws/credentials
           kubectl config current-context
           kubectl version --short --client
           kubectl get nodes
